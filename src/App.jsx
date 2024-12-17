@@ -12,7 +12,11 @@ function App() {
     event.preventDefault();
 
     //creo l'oggetto del nuovo post
-    let newPost = [newTitle];
+    let newPost = {
+      id: Date.now(),
+      title: newTitle,
+      
+    };
 
     //aggiorno il post, aggiungendo il nuovo post
     setPost ([...post, newPost]);
@@ -23,7 +27,7 @@ function App() {
   }
 
   const elimina = (cancellaTitolo) =>{
-    const cancellato =  post.filter((curtitle) =>{curtitle !== cancellaTitolo})
+    const cancellato =  post.filter((curtitle) =>curtitle.id !== cancellaTitolo)
     console.log(cancellato);
     
     setPost(cancellato);
@@ -60,9 +64,10 @@ function App() {
         <ul>
         {post.map((curtitle , index) => {
 
-          return(<li key={index}>{curtitle}  
-          <button onClick={() =>{elimina(curtitle)}}>🗑️</button></li>)
+          return(<li key={index}>{curtitle.title}  
+          <span onClick={() =>elimina(curtitle.id)}>🗑️</span></li>)
         })}
+
         </ul>
       </section>
 
